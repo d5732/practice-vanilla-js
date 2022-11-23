@@ -1,1 +1,1 @@
-Just practicing vanilla JavaScript topics.
+Just practicing vanilla JavaScript.

@@ -1,19 +1,41 @@
 function allConstruct(target, elements) {
     if (target === "") return [[]];
-    const all = [];
+    const result = [];
 
-    for (const element of elements) {
-        if (target.indexOf(element) === 0) {
-            const remainder = target.slice(element.length);
+    for (const elem of elements) {
+        if (target.indexOf(elem) === 0) {
+            const remainder = target.slice(elem.length);
             const remainderWays = allConstruct(remainder, elements);
-            console.log(remainderWays);
-            const targetWays = remainderWays.map((x) => [element, ...x]);
-            all.push(...targetWays);
+            const targetWays = remainderWays.map((combo) => [elem, ...combo]);
+            result.push(...targetWays);
         }
     }
 
-    return all;
+    return result;
 }
 
-console.log(allConstruct("abcdef", ["ab", "cd", "ef", "abc", "def"]));
-// allConstruct("abcdef", ["ab", "cd", "ef", "abc", "def"]);
+// console.log(allConstruct("abcdef", ["ab", "cd", "ef", "abc", "def"]));
+
+// time: O(n**m)
+// space: O(m)
+//
+// m: target.length
+// n: elements.length
+
+function tabAllConstruct(target, elements) {
+    const dp = new Array(target.length + 1).fill().map(() => []);
+    dp[0] = [[]];
+
+    console.log(dp);
+    for (let i = 0; i < target.length; i++) {
+        for (const elem of elements) {
+            if (target.slice(i, i + elem.length) === elem) {
+                const _new = dp[i].map((curr) => [...curr, elem]);
+                dp[i + elem.length].push(..._new);
+            }
+        }
+    }
+    return dp[target.length];
+}
+
+console.log(tabAllConstruct("purple", ["purp", "p", "ur", "le", "purpl"]));

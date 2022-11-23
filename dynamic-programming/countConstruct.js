@@ -13,10 +13,31 @@ function countConstruct(target, elements, memo = {}) {
     return count;
 }
 
-console.log(countConstruct("abcdef", ["ab", "cd", "ef", "abc", "def"]));
+// console.log(countConstruct("abcdef", ["ab", "cd", "ef", "abc", "def"]));
 
 // n: elements[].length
 // m: string.length
 
 // time: O(n**m * m)
 // space: O(m**2)
+
+function tabCountConstruct(target, elements) {
+    const dp = [];
+    dp[target.length] = 0;
+    dp.fill(0);
+    dp[0] = 1; //seed
+
+    for (let i = 0; i < target.length; i++) {
+        if (dp[i]) {
+            for (const elem of elements) {
+                if (target.slice(i, i + elem.length) === elem) {
+                    dp[i + elem.length]++;
+                }
+            }
+        }
+    }
+
+    return dp[target.length];
+}
+
+console.log(tabCountConstruct("abcdef", ["ab", "cd", "ef", "abc", "def"]));

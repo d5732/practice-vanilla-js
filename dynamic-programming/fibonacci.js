@@ -5,4 +5,23 @@ function fib(n, memo = {}) {
     return memo[n];
 }
 
-console.log(fib(10));
+// console.log(fib(10));
+
+function tabFib(n) {
+    let dp = [];
+    dp.length = n + 1;
+    dp.fill(0);
+    dp[1] = 1;
+    // for (let i = 2; i <= n; i++) {
+    //     dp[i] = dp[i - 1] + dp[i - 2];
+    // }
+    let i = 0;
+    while (i < n) {
+        dp[i + 1] += dp[i];
+        dp[i + 2] += dp[i];
+        console.log(dp);
+        i++;
+    }
+    return dp[n];
+}
+console.log(tabFib(10));
